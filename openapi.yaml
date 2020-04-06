@@ -1,0 +1,95 @@
+swagger: '2.0'
+info:
+  description: This is a sample Warehouse server. It will store Company information and their orders
+  version: 1.0.0
+  title: Warehouse
+
+paths:
+  /info:
+    post:
+      summary: reports company info
+      operationId: app.companyinfo
+      description: Stores company data
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: CompanyInfo
+        description: Company Info
+        schema:
+          $ref: '#/definitions/CompanyInfo'
+      responses: 
+        201:
+          description: company added
+        400:
+          description: invalid input, object invalid
+          
+  /order:
+    post:
+      summary: reports company order
+      operationId: app.companyorder
+      description: Stores company order
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: CompanyOrder
+        description: Company Order
+        schema:
+          $ref: '#/definitions/CompanyOrder'
+      responses:
+        201:
+          description: order added
+        400:
+          description: invalid input, object invalid
+
+definitions:
+  CompanyInfo:
+    type: object
+    required:
+    - company_name
+    - order_date
+    - order_date_complete
+    properties:
+      company_name:
+        type: string
+        example: LBS Log Building Supplies
+      order_date:
+        type: string
+        format: date-time
+        example: 2019-12-11:12:00:00
+      order_date_complete:
+        type: string
+        format: date-time
+        example: 2020-12-11:12:00:00
+  CompanyOrder:
+    type: object
+    required:
+    - company_name
+    - material
+    - quantity
+    - price
+    - status
+    properties:
+      company_name:
+        type: string
+        example: LBS Log Building Supplies
+      orderId:
+        type: string
+        example: A001
+      material:
+        type: string
+        example: Oak Wood
+      quantity:
+        type: integer
+        example: 100
+      price:
+        type: integer
+        example: 120
+      status:
+        type: string
+        example: Ongoing
